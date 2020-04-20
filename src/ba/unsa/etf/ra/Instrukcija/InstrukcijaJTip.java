@@ -1,13 +1,15 @@
-package ba.unsa.etf.ra;
+package ba.unsa.etf.ra.Instrukcija;
 
 public class InstrukcijaJTip extends Instrukcija{
     private String izvor1;
     private String izvor2;
+    private Integer indeksDestinacije; //indeks u listi instrukcija na koju skace
 
-    public InstrukcijaJTip(String naziv, String izvor1, String izvor2) {
+    public InstrukcijaJTip(String naziv, String izvor1, String izvor2, Integer indeksDestinacije) {
         super(naziv);
         this.izvor1 = izvor1;
         this.izvor2 = izvor2;
+        this.indeksDestinacije = indeksDestinacije;
     }
 
     public String getIzvor1() {
@@ -24,5 +26,13 @@ public class InstrukcijaJTip extends Instrukcija{
 
     public void setIzvor2(String izvor2) {
         this.izvor2 = izvor2;
+    }
+
+    public Integer getIndeksDestinacije() {
+        return indeksDestinacije;
+    }
+
+    public void setIndeksDestinacije(Integer indeksDestinacije) {
+        this.indeksDestinacije = indeksDestinacije;
     }
 }

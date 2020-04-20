@@ -1,4 +1,4 @@
-package ba.unsa.etf.ra;
+package ba.unsa.etf.ra.Instrukcija;
 
 public class InstrukcijaRTip extends Instrukcija{
     private String izvor1;

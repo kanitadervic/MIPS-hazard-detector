@@ -1,4 +1,4 @@
-package ba.unsa.etf.ra;
+package ba.unsa.etf.ra.Instrukcija;
 
 public abstract class Instrukcija {
     private String naziv;
