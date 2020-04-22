@@ -24,32 +24,33 @@ public class Program {
                 Boolean nasaoZadrsku = false;
                 //prvi slucaj
                 if (i != 0) {
-                    if (instrukcije.get(i - 1) instanceof InstrukcijaRTip) {
-                        InstrukcijaRTip rTip = (InstrukcijaRTip) instrukcije.get(i - 1);
-                        nasaoZadrsku = provjeriRTipZadrsku(konacneInstrukcije, jTip, rTip, i, i);
-                    } else if (instrukcije.get(i - 1) instanceof InstrukcijaITip) {
-                        InstrukcijaITip iTip = (InstrukcijaITip) instrukcije.get(i - 1);
-                        nasaoZadrsku = provjeriITipZadrsku(konacneInstrukcije, jTip, iTip, i, i);
-                    }
+                    Instrukcija instrukcija = instrukcije.get(i - 1);
+                    nasaoZadrsku = provjeriIiRTipZadrsku(konacneInstrukcije, jTip, instrukcija, i, i);
                 }
                 //drugi slucaj
                 if (!nasaoZadrsku) {
-                    if (instrukcije.get(jTip.getIndeksDestinacije()) instanceof InstrukcijaRTip) {
-                        InstrukcijaRTip rTip = (InstrukcijaRTip) instrukcije.get(jTip.getIndeksDestinacije());
-                        nasaoZadrsku = provjeriRTipZadrsku(konacneInstrukcije, jTip, rTip, i, instrukcije.size());
-                    } else if (instrukcije.get(jTip.getIndeksDestinacije()) instanceof InstrukcijaITip) {
-                        InstrukcijaITip iTip = (InstrukcijaITip) instrukcije.get(jTip.getIndeksDestinacije());
-                        nasaoZadrsku = provjeriITipZadrsku(konacneInstrukcije, jTip, iTip, i, instrukcije.size());
-                    }
+                    Instrukcija instrukcija = instrukcije.get(i - 1);
+                    nasaoZadrsku = provjeriIiRTipZadrsku(konacneInstrukcije, jTip, instrukcija, i, instrukcije.size());
                 }
                 //treci
-//                if (!nasaoZadrsku) {
-//
-//                }
-                if(!nasaoZadrsku) konacneInstrukcije.add(null);
+                if (!nasaoZadrsku) {
+                    int pocetak, kraj;
+                    if (jTip.getIndeksDestinacije() > i) {
+                        pocetak = i + 1;
+                        kraj = jTip.getIndeksDestinacije();
+                    } else {
+                        pocetak = jTip.getIndeksDestinacije() + 1;
+                        kraj = i;
+                    }
+                    for (int j = pocetak; j < kraj; j++) {
+                        nasaoZadrsku = provjeriIiRTipZadrsku(konacneInstrukcije, jTip, instrukcije.get(j), pocetak,j) && provjeriIiRTipZadrsku(konacneInstrukcije, jTip, instrukcije.get(j), kraj+1, instrukcije.size());
+                        if(nasaoZadrsku) break;
+                    }
+                }
+                if (!nasaoZadrsku) konacneInstrukcije.add(null);
             }
         }
-        //        for(Instrukcija i: konacneInstrukcije) System.out.println(i.getNaziv());
+               // for(Instrukcija i: konacneInstrukcije) System.out.println(i.getNaziv());
         for (int i = 0; i < konacneInstrukcije.size(); i += 2) {
             if(instrukcije.get(i+1)==null) System.out.println(konacneInstrukcije.get(i).getNaziv() + " nema instrukciju zadrske");
             else System.out.println(konacneInstrukcije.get(i).getNaziv() + " " + konacneInstrukcije.get(i + 1).getNaziv());
@@ -78,19 +79,38 @@ public class Program {
         }
         return false;
     }
+//
+//    private boolean provjeriRTipZadrsku(List<Instrukcija> konacneInstrukcije, InstrukcijaJTip jTip, InstrukcijaRTip rTip, int pocetak, int kraj) {
+//        if (!rTip.getOdrediste().equals(jTip.getIzvor1()) && !rTip.getOdrediste().equals(jTip.getIzvor2()) && !seKoristiUBloku(rTip, pocetak, kraj)) {
+//            konacneInstrukcije.add(rTip);
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//    private boolean provjeriITipZadrsku(List<Instrukcija> konacneInstrukcije, InstrukcijaJTip jTip, InstrukcijaITip iTip, int pocetak, int kraj) {
+//        if (!iTip.getOdrediste().equals(jTip.getIzvor1()) && !iTip.getOdrediste().equals(jTip.getIzvor2()) && !seKoristiUBloku(iTip, pocetak, kraj)) {
+//            konacneInstrukcije.add(iTip);
+//            return true;
+//        }
+//        return false;
+//    }
 
-    private boolean provjeriRTipZadrsku(List<Instrukcija> konacneInstrukcije, InstrukcijaJTip jTip, InstrukcijaRTip rTip, int pocetak, int kraj) {
-        if (!rTip.getOdrediste().equals(jTip.getIzvor1()) && !rTip.getOdrediste().equals(jTip.getIzvor2()) && !seKoristiUBloku(rTip, pocetak, kraj)) {
-            konacneInstrukcije.add(rTip);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean provjeriITipZadrsku(List<Instrukcija> konacneInstrukcije, InstrukcijaJTip jTip, InstrukcijaITip iTip, int pocetak, int kraj) {
-        if (!iTip.getOdrediste().equals(jTip.getIzvor1()) && !iTip.getOdrediste().equals(jTip.getIzvor2()) && !seKoristiUBloku(iTip, pocetak, kraj)) {
-            konacneInstrukcije.add(iTip);
-            return true;
+    private boolean provjeriIiRTipZadrsku(List<Instrukcija> konacneInstrukcije, InstrukcijaJTip jTip, Instrukcija instrukcija, int pocetak, int kraj) {
+        if (instrukcija instanceof InstrukcijaITip) {
+            InstrukcijaITip iTip = (InstrukcijaITip) instrukcija;
+            if (!iTip.getOdrediste().equals(jTip.getIzvor1()) && !iTip.getOdrediste().equals(jTip.getIzvor2()) && !seKoristiUBloku(iTip, pocetak, kraj)) {
+                konacneInstrukcije.add(iTip);
+                return true;
+            }
+            return false;
+        } else if (instrukcija instanceof InstrukcijaRTip) {
+            InstrukcijaRTip rTip = (InstrukcijaRTip) instrukcija;
+            if (!rTip.getOdrediste().equals(jTip.getIzvor1()) && !rTip.getOdrediste().equals(jTip.getIzvor2()) && !seKoristiUBloku(rTip, pocetak, kraj)) {
+                konacneInstrukcije.add(rTip);
+                return true;
+            }
+            return false;
         }
         return false;
     }
