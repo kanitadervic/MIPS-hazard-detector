@@ -41,10 +41,15 @@ public class InstructionFileHandler {
                     imm = Integer.parseInt(dijeloviInstrukcije.get(dijeloviInstrukcije.size() - 1));
                     imaNeposrednu = true;
                 } catch (Exception ignored) {
+                    try {
+                        imm = Integer.parseInt(dijeloviInstrukcije.get(dijeloviInstrukcije.size() - 2));
+                        imaNeposrednu = true;
+                    } catch(Exception ignored2) {
+                    }
                 }
                 String naziv = dijeloviInstrukcije.get(0);
                 if (instrukcija.contains("(") || imaNeposrednu) {
-                    dodajITipInstrukciju(dijeloviInstrukcije, imm);
+                    dodajITipInstrukciju(dijeloviInstrukcije, imm, instrukcija);
                 } else if (naziv.toLowerCase().equals("bne") || naziv.toLowerCase().equals("beq")) {
                     dodajJTipInstrukciju(dijeloviInstrukcije, naziv);
                 } else {
@@ -71,20 +76,29 @@ public class InstructionFileHandler {
                 labele.get(dijeloviInstrukcije.get(3))));
     }
 
-    private void dodajITipInstrukciju(List<String> dijeloviInstrukcije, Integer imm) {
-        if (dijeloviInstrukcije.size() == 3) {
-            imm = Integer.parseInt(dijeloviInstrukcije.get(2));
+    private void dodajITipInstrukciju(List<String> dijeloviInstrukcije, Integer imm, String zapis) {
+        if(dijeloviInstrukcije.get(0).toLowerCase().equals("lw")) {
             instrukcije.add(new InstrukcijaITip(
                     dijeloviInstrukcije.get(0),
                     dijeloviInstrukcije.get(3),
                     dijeloviInstrukcije.get(1),
-                    imm.shortValue()));
+                    imm.shortValue(),
+                    zapis));
+        }
+        else if(dijeloviInstrukcije.get(0).toLowerCase().equals("sw")) {
+            instrukcije.add(new InstrukcijaITip(
+                    dijeloviInstrukcije.get(0),
+                    dijeloviInstrukcije.get(3),
+                    "",
+                    imm.shortValue(),
+                    zapis));
         } else {
             instrukcije.add(new InstrukcijaITip(
                     dijeloviInstrukcije.get(0),
                     dijeloviInstrukcije.get(2),
                     dijeloviInstrukcije.get(1),
-                    imm.shortValue()));
+                    imm.shortValue(),
+                    zapis));
         }
     }
 

@@ -4,12 +4,14 @@ public class InstrukcijaITip extends Instrukcija {
     private String izvor;
     private String odrediste;
     private short neposrednaVrijednost;
+    private String zapis;
 
-    public InstrukcijaITip(String naziv, String izvor, String odrediste, short neposrednaVrijednost) {
+    public InstrukcijaITip(String naziv, String izvor, String odrediste, short neposrednaVrijednost, String zapis) {
         super(naziv);
         this.izvor = izvor;
         this.odrediste = odrediste;
         this.neposrednaVrijednost = neposrednaVrijednost;
+        this.zapis = zapis;
     }
 
     public String getIzvor() {
@@ -34,5 +36,13 @@ public class InstrukcijaITip extends Instrukcija {
 
     public void setNeposrednaVrijednost(short neposrednaVrijednost) {
         this.neposrednaVrijednost = neposrednaVrijednost;
+    }
+
+    public String getZapis() {
+        return zapis;
+    }
+
+    public void setZapis(String zapis) {
+        this.zapis = zapis;
     }
 }

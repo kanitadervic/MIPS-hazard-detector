@@ -35,4 +35,9 @@ public class InstrukcijaJTip extends Instrukcija{
     public void setIndeksDestinacije(Integer indeksDestinacije) {
         this.indeksDestinacije = indeksDestinacije;
     }
+
+    @Override
+    public String toString() {
+        return getNaziv() + ", " + getIzvor1() + ", " +getIzvor2();
+    }
 }

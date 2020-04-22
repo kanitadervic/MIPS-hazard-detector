@@ -5,8 +5,13 @@ import ba.unsa.etf.ra.Instrukcija.InstrukcijaITip;
 import ba.unsa.etf.ra.Instrukcija.InstrukcijaJTip;
 import ba.unsa.etf.ra.Instrukcija.InstrukcijaRTip;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 
 public class Program {
@@ -25,12 +30,18 @@ public class Program {
                 //prvi slucaj
                 if (i != 0) {
                     Instrukcija instrukcija = instrukcije.get(i - 1);
-                    nasaoZadrsku = provjeriIiRTipZadrsku(konacneInstrukcije, jTip, instrukcija, i, i);
+                    nasaoZadrsku = provjeriIiRTipZadrsku(jTip, instrukcija, i, i);
+                    if (nasaoZadrsku) {
+                        konacneInstrukcije.add(instrukcija);
+                    }
                 }
                 //drugi slucaj
                 if (!nasaoZadrsku) {
-                    Instrukcija instrukcija = instrukcije.get(i - 1);
-                    nasaoZadrsku = provjeriIiRTipZadrsku(konacneInstrukcije, jTip, instrukcija, i, instrukcije.size());
+                    Instrukcija instrukcija = instrukcije.get(jTip.getIndeksDestinacije());
+                    nasaoZadrsku = provjeriIiRTipZadrsku(jTip, instrukcija, i, instrukcije.size());
+                    if (nasaoZadrsku) {
+                        konacneInstrukcije.add(instrukcija);
+                    }
                 }
                 //treci
                 if (!nasaoZadrsku) {
@@ -43,17 +54,39 @@ public class Program {
                         kraj = i;
                     }
                     for (int j = pocetak; j < kraj; j++) {
-                        nasaoZadrsku = provjeriIiRTipZadrsku(konacneInstrukcije, jTip, instrukcije.get(j), pocetak,j) && provjeriIiRTipZadrsku(konacneInstrukcije, jTip, instrukcije.get(j), kraj+1, instrukcije.size());
-                        if(nasaoZadrsku) break;
+                        Instrukcija instrukcija = instrukcije.get(j);
+                        nasaoZadrsku = provjeriIiRTipZadrsku(jTip, instrukcija, pocetak, j) && provjeriIiRTipZadrsku(jTip, instrukcija, kraj, instrukcije.size());
+                        if (nasaoZadrsku) {
+                            konacneInstrukcije.add(instrukcija);
+                            break;
+                        }
                     }
                 }
                 if (!nasaoZadrsku) konacneInstrukcije.add(null);
             }
         }
-               // for(Instrukcija i: konacneInstrukcije) System.out.println(i.getNaziv());
-        for (int i = 0; i < konacneInstrukcije.size(); i += 2) {
-            if(instrukcije.get(i+1)==null) System.out.println(konacneInstrukcije.get(i).getNaziv() + " nema instrukciju zadrske");
-            else System.out.println(konacneInstrukcije.get(i).getNaziv() + " " + konacneInstrukcije.get(i + 1).getNaziv());
+        try {
+            FileWriter fileWriter = new FileWriter("konacanRezultat.txt");
+            fileWriter.write("");
+            for (int i = 0; i < konacneInstrukcije.size(); i += 2) {
+                InstrukcijaJTip jTipInsturkcija = (InstrukcijaJTip) konacneInstrukcije.get(i);
+                if (konacneInstrukcije.get(i + 1) == null) {
+                    fileWriter.append(jTipInsturkcija.toString()).append(" nema instrukciju zadrske.").append(System.lineSeparator());
+                } else {
+                    fileWriter.append(jTipInsturkcija.toString()).append(" ima instrukciju zadrske: ");
+                    Instrukcija instrukcija = konacneInstrukcije.get(i + 1);
+                    if (instrukcija instanceof InstrukcijaITip) {
+                        InstrukcijaITip instrukcijaITip = (InstrukcijaITip) instrukcija;
+                        fileWriter.append(instrukcijaITip.getZapis()).append(System.lineSeparator());
+                    } else if (instrukcija instanceof InstrukcijaRTip) {
+                        InstrukcijaRTip instrukcijaRTip = (InstrukcijaRTip) instrukcija;
+                        fileWriter.append(instrukcijaRTip.toString()).append(System.lineSeparator());
+                    }
+                }
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -79,35 +112,17 @@ public class Program {
         }
         return false;
     }
-//
-//    private boolean provjeriRTipZadrsku(List<Instrukcija> konacneInstrukcije, InstrukcijaJTip jTip, InstrukcijaRTip rTip, int pocetak, int kraj) {
-//        if (!rTip.getOdrediste().equals(jTip.getIzvor1()) && !rTip.getOdrediste().equals(jTip.getIzvor2()) && !seKoristiUBloku(rTip, pocetak, kraj)) {
-//            konacneInstrukcije.add(rTip);
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    private boolean provjeriITipZadrsku(List<Instrukcija> konacneInstrukcije, InstrukcijaJTip jTip, InstrukcijaITip iTip, int pocetak, int kraj) {
-//        if (!iTip.getOdrediste().equals(jTip.getIzvor1()) && !iTip.getOdrediste().equals(jTip.getIzvor2()) && !seKoristiUBloku(iTip, pocetak, kraj)) {
-//            konacneInstrukcije.add(iTip);
-//            return true;
-//        }
-//        return false;
-//    }
 
-    private boolean provjeriIiRTipZadrsku(List<Instrukcija> konacneInstrukcije, InstrukcijaJTip jTip, Instrukcija instrukcija, int pocetak, int kraj) {
+    private boolean provjeriIiRTipZadrsku(InstrukcijaJTip jTip, Instrukcija instrukcija, int pocetak, int kraj) {
         if (instrukcija instanceof InstrukcijaITip) {
             InstrukcijaITip iTip = (InstrukcijaITip) instrukcija;
             if (!iTip.getOdrediste().equals(jTip.getIzvor1()) && !iTip.getOdrediste().equals(jTip.getIzvor2()) && !seKoristiUBloku(iTip, pocetak, kraj)) {
-                konacneInstrukcije.add(iTip);
                 return true;
             }
             return false;
         } else if (instrukcija instanceof InstrukcijaRTip) {
             InstrukcijaRTip rTip = (InstrukcijaRTip) instrukcija;
             if (!rTip.getOdrediste().equals(jTip.getIzvor1()) && !rTip.getOdrediste().equals(jTip.getIzvor2()) && !seKoristiUBloku(rTip, pocetak, kraj)) {
-                konacneInstrukcije.add(rTip);
                 return true;
             }
             return false;

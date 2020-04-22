@@ -1,6 +1,6 @@
 package ba.unsa.etf.ra.Instrukcija;
 
-public class InstrukcijaRTip extends Instrukcija{
+public class InstrukcijaRTip extends Instrukcija {
     private String izvor1;
     private String izvor2;
     private String odrediste;
@@ -34,5 +34,10 @@ public class InstrukcijaRTip extends Instrukcija{
 
     public void setOdrediste(String odrediste) {
         this.odrediste = odrediste;
+    }
+
+    @Override
+    public String toString() {
+        return getNaziv() + " " + getOdrediste() + "," + getIzvor1() + "," + getIzvor2();
     }
 }
