@@ -84,6 +84,8 @@ public class Program {
                     }
                 }
             }
+            File file = new File("konacanRezultat.txt");
+            System.out.println("Putanja do datoteke sa predlozenim instrukcijama zadrske je: " + file.getAbsolutePath());
             fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
