@@ -6,12 +6,10 @@ import ba.unsa.etf.ra.Instrukcija.InstrukcijaJTip;
 import ba.unsa.etf.ra.Instrukcija.InstrukcijaRTip;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 
 public class Program {
@@ -30,7 +28,7 @@ public class Program {
                 //prvi slucaj
                 if (i != 0) {
                     Instrukcija instrukcija = instrukcije.get(i - 1);
-                    nasaoZadrsku = provjeriIiRTipZadrsku(jTip, instrukcija, i, i);
+                    nasaoZadrsku = provjeriIiRTipZadrsku(jTip, instrukcija, i+1, instrukcije.size());
                     if (nasaoZadrsku) {
                         konacneInstrukcije.add(instrukcija);
                     }
@@ -71,9 +69,9 @@ public class Program {
             for (int i = 0; i < konacneInstrukcije.size(); i += 2) {
                 InstrukcijaJTip jTipInsturkcija = (InstrukcijaJTip) konacneInstrukcije.get(i);
                 if (konacneInstrukcije.get(i + 1) == null) {
-                    fileWriter.append(jTipInsturkcija.toString()).append(" nema instrukciju zadrske.").append(System.lineSeparator());
+                    fileWriter.append("Instrukcija ").append(jTipInsturkcija.toString()).append(" na poziciji ").append(String.valueOf(instrukcije.indexOf(jTipInsturkcija))).append(" nema instrukciju zadrške.").append(System.lineSeparator());
                 } else {
-                    fileWriter.append(jTipInsturkcija.toString()).append(" ima instrukciju zadrske: ");
+                    fileWriter.append("Instrukcija ").append(jTipInsturkcija.toString()).append(" na poziciji ").append(String.valueOf(instrukcije.indexOf(jTipInsturkcija))).append(" ima instrukciju zadrške: ");
                     Instrukcija instrukcija = konacneInstrukcije.get(i + 1);
                     if (instrukcija instanceof InstrukcijaITip) {
                         InstrukcijaITip instrukcijaITip = (InstrukcijaITip) instrukcija;

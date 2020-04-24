@@ -1,4 +1,4 @@
-lw,r2,0,r1
+lw r2,0(r1)
 label1: beq r2,r0,label2
 addi r20,r20,20
 beq r3,r0,label1

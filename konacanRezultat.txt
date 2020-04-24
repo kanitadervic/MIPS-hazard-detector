@@ -1,2 +1,2 @@
-beq, r2, r0 ima instrukciju zadrske: addi r20,r20,20
-beq, r3, r0 ima instrukciju zadrske: addi r20,r20,20
+Instrukcija beq, r2, r0 na poziciji 1 ima instrukciju zadrške: addi r20,r20,20
+Instrukcija beq, r3, r0 na poziciji 3 ima instrukciju zadrške: addi r20,r20,20
