@@ -27,7 +27,7 @@ class ProgramTest {
         fileWriter.close();
         Program program = new Program(); //Upisuje instrukcije zadrske u konacanRezultat
         String actual = Files.readString(Paths.get("konacanRezultat.txt"));
-        String expected = "Instrukcija beq, r2, r0 na poziciji 1 ima instrukciju zadrške: add r3,r0,r1\n";
+        String expected = "Instrukcija beq, r2, r0 na poziciji 1 ima instrukciju zadrške: add r3,r0,r1" + System.lineSeparator();
         assertEquals(expected, actual);
     }
 
@@ -43,8 +43,8 @@ class ProgramTest {
         fileWriter.close();
         Program program = new Program(); //Upisuje instrukcije zadrske u konacanRezultat
         String actual = Files.readString(Paths.get("konacanRezultat.txt"));
-        String expected = "Instrukcija beq, r2, r0 na poziciji 1 ima instrukciju zadrške: add r3,r0,r1\n" +
-                "Instrukcija beq, r2, r5 na poziciji 4 ima instrukciju zadrške: lw r1,0(r2)\n";
+        String expected = "Instrukcija beq, r2, r0 na poziciji 1 ima instrukciju zadrške: add r3,r0,r1" + System.lineSeparator() +
+                "Instrukcija beq, r2, r5 na poziciji 4 ima instrukciju zadrške: lw r1,0(r2)" + System.lineSeparator();
         assertEquals(expected, actual);
     }
 
@@ -59,7 +59,7 @@ class ProgramTest {
         fileWriter.close();
         Program program = new Program(); //Upisuje instrukcije zadrske u konacanRezultat
         String actual = Files.readString(Paths.get("konacanRezultat.txt"));
-        String expected = "Instrukcija beq, r2, r0 na poziciji 1 ima instrukciju zadrške: addi r20,r20,20\n";
+        String expected = "Instrukcija beq, r2, r0 na poziciji 1 ima instrukciju zadrške: addi r20,r20,20" + System.lineSeparator();
         assertEquals(expected, actual);
     }
 
@@ -76,8 +76,8 @@ class ProgramTest {
         fileWriter.close();
         Program program = new Program(); //Upisuje instrukcije zadrske u konacanRezultat
         String actual = Files.readString(Paths.get("konacanRezultat.txt"));
-        String expected = "Instrukcija beq, r2, r0 na poziciji 1 ima instrukciju zadrške: addi r20,r20,20\n" +
-                "Instrukcija beq, r2, r0 na poziciji 5 ima instrukciju zadrške: lw r1,0(r2)\n";
+        String expected = "Instrukcija beq, r2, r0 na poziciji 1 ima instrukciju zadrške: addi r20,r20,20" + System.lineSeparator() +
+                "Instrukcija beq, r2, r0 na poziciji 5 ima instrukciju zadrške: lw r1,0(r2)" + System.lineSeparator();
         assertEquals(expected, actual);
     }
 
@@ -95,7 +95,7 @@ class ProgramTest {
         fileWriter.close();
         Program program = new Program(); //Upisuje instrukcije zadrske u konacanRezultat
         String actual = Files.readString(Paths.get("konacanRezultat.txt"));
-        String expected = "Instrukcija beq, r2, r0 na poziciji 1 ima instrukciju zadrške: ori r13,r12,50\n";
+        String expected = "Instrukcija beq, r2, r0 na poziciji 1 ima instrukciju zadrške: ori r13,r12,50" + System.lineSeparator();
         assertEquals(expected, actual);
     }
 
@@ -115,8 +115,8 @@ class ProgramTest {
         fileWriter.close();
         Program program = new Program(); //Upisuje instrukcije zadrske u konacanRezultat
         String actual = Files.readString(Paths.get("konacanRezultat.txt"));
-        String expected = "Instrukcija beq, r2, r1 na poziciji 1 ima instrukciju zadrške: and r13,r12,r11\n" +
-                "Instrukcija beq, r2, r0 na poziciji 4 ima instrukciju zadrške: ori r13,r12,50\n";
+        String expected = "Instrukcija beq, r2, r1 na poziciji 1 ima instrukciju zadrške: and r13,r12,r11" + System.lineSeparator() +
+                "Instrukcija beq, r2, r0 na poziciji 4 ima instrukciju zadrške: ori r13,r12,50" + System.lineSeparator();
         assertEquals(expected, actual);
     }
 
@@ -132,8 +132,8 @@ class ProgramTest {
         fileWriter.close();
         Program program = new Program(); //Upisuje instrukcije zadrske u konacanRezultat
         String actual = Files.readString(Paths.get("konacanRezultat.txt"));
-        String expected = "Instrukcija beq, r2, r0 na poziciji 1 ima instrukciju zadrške: add r3,r0,r1\n" +
-                "Instrukcija beq, r2, r5 na poziciji 4 ima instrukciju zadrške: addi r15,r20,20\n";
+        String expected = "Instrukcija beq, r2, r0 na poziciji 1 ima instrukciju zadrške: add r3,r0,r1" + System.lineSeparator() +
+                "Instrukcija beq, r2, r5 na poziciji 4 ima instrukciju zadrške: addi r15,r20,20" + System.lineSeparator();
         assertEquals(expected, actual);
 
     }
@@ -152,8 +152,8 @@ class ProgramTest {
         fileWriter.close();
         Program program = new Program(); //Upisuje instrukcije zadrske u konacanRezultat
         String actual = Files.readString(Paths.get("konacanRezultat.txt"));
-        String expected = "Instrukcija beq, r2, r0 na poziciji 1 ima instrukciju zadrške: add r3,r0,r1\n" +
-                "Instrukcija beq, r2, r5 na poziciji 6 ima instrukciju zadrške: andi r6,r5,20\n";
+        String expected = "Instrukcija beq, r2, r0 na poziciji 1 ima instrukciju zadrške: add r3,r0,r1" + System.lineSeparator() +
+                "Instrukcija beq, r2, r5 na poziciji 6 ima instrukciju zadrške: andi r6,r5,20" + System.lineSeparator();
         assertEquals(expected, actual);
 
     }
@@ -173,8 +173,8 @@ class ProgramTest {
         fileWriter.close();
         Program program = new Program(); //Upisuje instrukcije zadrske u konacanRezultat
         String actual = Files.readString(Paths.get("konacanRezultat.txt"));
-        String expected = "Instrukcija beq, r2, r0 na poziciji 2 ima instrukciju zadrške: add r3,r0,r1\n" +
-                "Instrukcija beq, r2, r5 na poziciji 7 ima instrukciju zadrške: andi r6,r5,20\n";
+        String expected = "Instrukcija beq, r2, r0 na poziciji 2 ima instrukciju zadrške: add r3,r0,r1" + System.lineSeparator() +
+                "Instrukcija beq, r2, r5 na poziciji 7 ima instrukciju zadrške: andi r6,r5,20" + System.lineSeparator();
         assertEquals(expected, actual);
 
     }
@@ -196,9 +196,9 @@ class ProgramTest {
         fileWriter.close();
         Program program = new Program(); //Upisuje instrukcije zadrske u konacanRezultat
         String actual = Files.readString(Paths.get("konacanRezultat.txt"));
-        String expected = "Instrukcija beq, r2, r0 na poziciji 2 ima instrukciju zadrške: add r3,r0,r1\n" +
-                "Instrukcija beq, r2, r5 na poziciji 7 ima instrukciju zadrške: andi r6,r5,20\n" +
-                "Instrukcija beq, r6, r4 na poziciji 9 ima instrukciju zadrške: add r1,r7,r8\n";
+        String expected = "Instrukcija beq, r2, r0 na poziciji 2 ima instrukciju zadrške: add r3,r0,r1" + System.lineSeparator() +
+                "Instrukcija beq, r2, r5 na poziciji 7 ima instrukciju zadrške: andi r6,r5,20" + System.lineSeparator() +
+                "Instrukcija beq, r6, r4 na poziciji 9 ima instrukciju zadrške: add r1,r7,r8" + System.lineSeparator();
         assertEquals(expected, actual);
 
     }
@@ -222,9 +222,9 @@ class ProgramTest {
         fileWriter.close();
         Program program = new Program(); //Upisuje instrukcije zadrske u konacanRezultat
         String actual = Files.readString(Paths.get("konacanRezultat.txt"));
-        String expected = "Instrukcija beq, r2, r0 na poziciji 2 nema instrukciju zadrške.\n" +
-                "Instrukcija beq, r2, r5 na poziciji 7 nema instrukciju zadrške.\n" +
-                "Instrukcija beq, r6, r4 na poziciji 9 nema instrukciju zadrške.\n";
+        String expected = "Instrukcija beq, r2, r0 na poziciji 2 nema instrukciju zadrške."+ System.lineSeparator() +
+                "Instrukcija beq, r2, r5 na poziciji 7 nema instrukciju zadrške."+ System.lineSeparator() +
+                "Instrukcija beq, r6, r4 na poziciji 9 nema instrukciju zadrške."+ System.lineSeparator();
         assertEquals(expected, actual);
 
     }
@@ -243,8 +243,8 @@ class ProgramTest {
         fileWriter.close();
         Program program = new Program(); //Upisuje instrukcije zadrske u konacanRezultat
         String actual = Files.readString(Paths.get("konacanRezultat.txt"));
-        String expected = "Instrukcija beq, r2, r0 na poziciji 1 ima instrukciju zadrške: addi r20,r20,20\n" +
-                "Instrukcija beq, r3, r0 na poziciji 3 ima instrukciju zadrške: addi r20,r20,20\n";
+        String expected = "Instrukcija beq, r2, r0 na poziciji 1 ima instrukciju zadrške: addi r20,r20,20"+ System.lineSeparator() +
+                "Instrukcija beq, r3, r0 na poziciji 3 ima instrukciju zadrške: addi r20,r20,20"+ System.lineSeparator();
         assertEquals(expected, actual);
     }
 }
